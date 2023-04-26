@@ -7,7 +7,7 @@ import { auth, db, storage } from "../firebase";
 import firebase from "firebase/app";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 
-const TweetInput = () => {
+const TweetInput: React.FC = () => {
   const user = useSelector(selectUser);
   const [tweetImage, setTweetImage] = useState<File | null>(null);
   const [tweetMsg, setTweetMsg] = useState("");
@@ -38,8 +38,7 @@ const TweetInput = () => {
           alert(error.message);
         },
         async () => {
-          console.log("Tweet!");
-
+          //ストーレッジに登録した画像を取得してpostsにデータを登録する
           await storage
             .ref("images")
             .child(fileName)
@@ -57,8 +56,6 @@ const TweetInput = () => {
       );
     } else {
       //テキストのみで、画像がないときの処理
-      console.log("Tweet!");
-
       db.collection("posts").add({
         avatar: user.photoUrl,
         image: "",
